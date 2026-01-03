@@ -5,267 +5,362 @@
     <title>{% block title %}Expense Tracker{% endblock %}</title>
 
     <style>
+        html {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: honeydew;
             margin: 0;
             padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            /* prevents side white space */
+            font-family: "Segoe UI", Arial, sans-serif;
         }
 
-        /* nav {
-            background-color: salmon;
-            padding: 15px;
+        * {
+            box-sizing: border-box;
         }
 
-        nav a {
+
+        /* ===== TOP BAR ===== */
+        .topbar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            margin-right: 20px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .nav-right {
-            color: white;
-            margin-right: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            text-align: right;
-            float: right;
-            /* Optional: give the container a width to see the alignment effect */
-        /* width: 100%; */
-        /*}
-
-         nav a:hover { 
-            text-decoration: underline;
-        } */
-
-
-        /* ===== NAVBAR ===== */
-
-        .navbar {
-            background-color: salmon;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* 🔥 THIS fixes vertical alignment */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         }
 
-        .nav-left,
-        .nav-right {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-left a,
-        .nav-right a {
+        /* .topbar a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            margin-right: 20px;
+            font-weight: 500;
+        } */
+
+        .topbar a,
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
             margin-right: 20px;
         }
 
-        .nav-left a:last-child {
+        .topbar a:hover,
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+
+        .topbar a:last-child {
             margin-right: 0;
         }
 
-        .nav-right a {
-            margin-right: 0;
-        }
+        /* ===== MAIN CONTAINER ===== */
+        /* .container {
+            padding: 30px;
+        } */
+        /* .container {
+            padding: 30px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        } */
 
         .container {
-            padding: 20px;
+            width: 100vw;
+            /* IMPORTANT */
+            padding: 0;
+            margin: 0;
         }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
+
+        /* ===== CARD ===== */
+        .card {
             background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
-        table th,
-        table td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
+        /* ===== TABLE ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
         table th {
-            background-color: #f2f2f2;
+            background-color: #ecf0f1;
+            padding: 10px;
         }
 
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        /* ===== BUTTONS ===== */
         .btn {
             padding: 6px 12px;
             border-radius: 4px;
             text-decoration: none;
             color: white;
+            font-size: 14px;
         }
 
         .btn-add {
-            background-color: green;
+            background-color: #27ae60;
         }
 
         .btn-edit {
-            background-color: orange;
+            background-color: #f39c12;
         }
 
         .btn-delete {
-            background-color: red;
+            background-color: #e74c3c;
         }
 
-        /* ===== AUTH PAGES (LOGIN & REGISTER) ===== */
-
-        .auth-box {
-            width: 360px;
-            margin: 100px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
-            box-sizing: border-box;
-        }
-
-        .auth-box h2 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .auth-box form {
-            width: 100%;
-        }
-
-        .auth-box input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #999;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        .auth-box button {
-            width: 100%;
-            padding: 12px;
-            background-color: salmon;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .auth-box button:hover {
-            background-color: darksalmon;
-        }
-
-        .auth-box a {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: blue;
-            text-decoration: underline;
-        }
-
-        /* ===== EXPENSE FORMS (ADD / EDIT) ===== */
-
-        .form-box {
-            width: 420px;
+        /* ===== FORMS ===== */
+        .form-card {
+            max-width: 420px;
             margin: 40px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
-            box-sizing: border-box;
         }
 
-        .form-box h2 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .form-box label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .form-box input,
-        .form-box select,
-        .form-box textarea {
+        .form-card input,
+        .form-card select,
+        .form-card textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #999;
             border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
+            border: 1px solid #ccc;
         }
 
-        .form-box textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .form-box button {
+        .form-card button {
             width: 100%;
             padding: 12px;
-            background-color: salmon;
+            background-color: #2c3e50;
+            color: white;
             border: none;
             border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* ===== AUTH ===== */
+        .auth-card {
+            max-width: 360px;
+            margin: 100px auto;
+        }
+
+        .auth-card h2 {
+            text-align: center;
+        }
+
+        /* ===== AUTH BACKGROUND ===== */
+        .auth-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== GLASS CARD ===== */
+        .auth-glass {
+            width: 380px;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        .auth-glass h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+
+        /* ===== INPUTS ===== */
+        .auth-glass input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* ===== BUTTON ===== */
+        .auth-glass button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: #ff7a18;
             color: white;
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        .form-box button:hover {
-            background-color: darksalmon;
+        .auth-glass button:hover {
+            background: #ff9f45;
         }
 
-        .form-box .back-link {
+        /* ===== LINKS ===== */
+        .auth-glass a {
             display: block;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 18px;
+            color: #ffeaa7;
+            text-decoration: none;
+        }
+
+        .auth-glass a:hover {
             text-decoration: underline;
+        }
+
+        /* ===== GLASS DASHBOARD / FORMS ===== */
+
+        /* .glass-page {
+            min-height: calc(100vh - 60px);
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        } */
+
+        /* .glass-page {
+            min-height: calc(100vh - 60px);
+            width: 100%;
+            padding: 30px;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-sizing: border-box;
+        } */
+
+        /* .glass-page {
+            min-height: calc(100vh - 60px);
+            width: 100vw;
+            margin: 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        } */
+
+        .glass-page {
+            min-height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-sizing: border-box;
+        }
+
+
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card h2 {
+            margin-bottom: 20px;
+        }
+
+        /* TABLE */
+        .glass-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .glass-table th,
+        .glass-table td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .glass-table th {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .glass-table td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* FORM ELEMENTS */
+        .glass-card input,
+        .glass-card select,
+        .glass-card textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        /* BUTTONS */
+        .glass-btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .glass-add {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .glass-edit {
+            background: #f1c40f;
+            color: black;
+        }
+
+        .glass-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .glass-submit {
+            background: #ff7a18;
+            color: white;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- {% if user.is_authenticated %}
-    <nav>
-        <a href="{% url 'dashboard' %}">Home</a>
-        <a href="{% url 'add_expense' %}">Add Expense</a>
-        <div class="nav-right">
-            <a href="{% url 'logout' %}">Logout</a>
-        </div>
-    </nav>
-    {% endif %} -->
     {% block navbar %}
     {% if user.is_authenticated %}
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="{% url 'dashboard' %}">Home</a>
+    <div class="topbar">
+        <div>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
             <a href="{% url 'add_expense' %}">Add Expense</a>
         </div>
-
-        <div class="nav-right">
+        <div>
             <a href="{% url 'logout' %}">Logout</a>
         </div>
-    </nav>
+    </div>
     {% endif %}
-
     {% endblock %}
 
-
-
     <div class="container">
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </div>
 
 </body>

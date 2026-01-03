@@ -1,49 +1,56 @@
 {% extends 'base.html' %}
-
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h1>Dashboard</h1>
+<div class="glass-page">
 
-<form method="GET">
-    <label>Filter by Category:</label>
-    <select name="category">
-        <option value="">All</option>
-        <option value="Food" {% if selected_food %}selected{% endif %}>Food</option>
-        <option value="Travel" {% if selected_travel %}selected{% endif %}>Travel</option>
-        <option value="Shopping" {% if selected_shopping %}selected{% endif %}>Shopping</option>
-        <option value="Rent" {% if selected_rent %}selected{% endif %}>Rent</option>
-        <option value="Others" {% if selected_others %}selected{% endif %}>Others</option>
-    </select>
-    <button type="submit">Filter</button>
-</form>
+    <div class="glass-card">
+        <h2>Expense Dashboard</h2>
 
-<br>
+        <form method="GET">
+            <label>Filter by Category:</label>
+            <select name="category">
+                <option value="">All</option>
+                <option value="Food" {% if selected_food %}selected{% endif %}>Food</option>
+                <option value="Travel" {% if selected_travel %}selected{% endif %}>Travel</option>
+                <option value="Shopping" {% if selected_shopping %}selected{% endif %}>Shopping</option>
+                <option value="Rent" {% if selected_rent %}selected{% endif %}>Rent</option>
+                <option value="Others" {% if selected_others %}selected{% endif %}>Others</option>
+            </select>
 
-<table>
-    <tr>
-        <th>Sl No</th>
-        <th>Category</th>
-        <th>Amount</th>
-        <th>Description</th>
-        <th>Actions</th>
-    </tr>
+            <button class="glass-btn glass-submit" type="submit">Filter</button>
+        </form>
+    </div>
 
-    {% for expense in expenses %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ expense.category }}</td>
-        <td>₹ {{ expense.amount }}</td>
-        <td>{{ expense.description }}</td>
-        <td>
-            <a class="btn btn-edit" href="{% url 'edit_expense' expense.id %}">Edit</a>
-            <a class="btn btn-delete" href="{% url 'delete_expense' expense.id %}"
-                onclick="return confirm('Are you sure?');">Delete</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    <div class="glass-card">
+        <table class="glass-table">
+            <tr>
+                <th>Sl No</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
 
-<br>
-<h3>Total Expense: ₹ {{ total }}</h3>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ expense.category }}</td>
+                <td>₹ {{ expense.amount }}</td>
+                <td>{{ expense.description }}</td>
+                <td>
+                    <a class="glass-btn glass-edit" href="{% url 'edit_expense' expense.id %}">Edit</a>
+                    <a class="glass-btn glass-delete" href="{% url 'delete_expense' expense.id %}"
+                        onclick="return confirm('Delete this expense?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="glass-card">
+        <strong>Total Expense:</strong> ₹ {{ total }}
+    </div>
+
+</div>
 {% endblock %}
